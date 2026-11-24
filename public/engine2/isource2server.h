@@ -141,8 +141,10 @@ public:
 	// Let the game .dll allocate it's own network/shared string tables
 	virtual void			GameCreateNetworkStringTables( void ) = 0;
 
-	// AMNOTE: Added in CS2 1.42.0.1 (14201); forwards to another interface's second vfunc.
-	virtual void			unk_001( void ) = 0;
+	// AMNOTE: Added in CS2 1.42.0.1 (14201). Nulls every INetworkStringTable pointer the game cached
+	// in GameCreateNetworkStringTables. The engine calls it before the string tables are recreated and
+	// before the server's string table container is destroyed, so nothing is left pointing at them.
+	virtual void			ReleaseNetworkStringTables( void ) = 0;
 
 	virtual void			WriteSignonMessages( const bf_write &buf ) = 0;
 
